@@ -1,0 +1,16 @@
+---
+- name: install httpd and start service playbook
+  hosts: Nodes
+  become: true 
+  tasks:
+  - name: 
+    service:
+      name: httpd
+      state: stopped
+    notify: uninstall httpd package
+
+  handlers:
+  - name: uninstall httpd package
+    yum:
+      name: httpd*
+      state: absent

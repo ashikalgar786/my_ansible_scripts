@@ -1,0 +1,13 @@
+---
+- name: List directory contents
+  hosts: Nodes
+  become: true
+  tasks:
+    - name: List contents of the directory
+      command: ls -l /etc
+      register: directory_contents
+
+    - name: Show directory contents
+      debug:
+        msg: "{{ directory_contents.stdout }}"
+

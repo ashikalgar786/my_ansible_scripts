@@ -1,0 +1,6 @@
+---
+- name: setup test role book
+  hosts: Nodes
+  become: true
+  roles:
+  - setup-apache-role

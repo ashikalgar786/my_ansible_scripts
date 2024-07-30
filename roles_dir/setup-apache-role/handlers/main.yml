@@ -1,0 +1,11 @@
+---
+# handlers file for setup-apache-role
+- name: start httpd service
+  service:
+    name: httpd
+    state: started
+
+- name: create a directory in ansadmin as npm_dir
+  file:
+    path: /home/ansadmin/npm_dir
+    state: directory

@@ -1,0 +1,12 @@
+---
+- name: creation of multiple users
+  hosts: Nodes
+  become: true
+  tasks:
+    - name: User creation starts
+      user: name='{{ item }}' state=present
+      with_items:
+        - Shami
+        - Raju
+        - Safi
+

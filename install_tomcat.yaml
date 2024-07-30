@@ -1,0 +1,47 @@
+---
+- name: setup tomcal step1 install java
+  hosts: Nodes
+  become: true
+  tasks:
+  - name: install java on Redhat started
+    yum: 
+      name: java
+      state: installed
+    when: ansible_os_family == "RedHat"
+
+    
+  - name: install java on Debian 
+    apt: 
+      name: default-jdk
+      state: present
+    when: ansible_os_family == "Debian"
+
+
+  - name: download the tomcat package
+    get_url:
+      url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.91/bin/apache-tomcat-9.0.91.tar.gz
+      dest: /opt
+
+  - name: extract the tomcat package
+    unarchive:
+      src: /opt/apache-tomcat-9.0.91.tar.gz
+      dest: /opt
+      remote_src: yes    #check for package in remote machine
+
+  - name: change the package file permissions
+    file: 
+      path: /opt/apache-tomcat-9.0.91/bin/startup.sh
+      mode: 0777
+
+
+  - name: delete the tar file
+    file:
+      path: /opt/apache-tomcat-9.0.91.tar.gz
+      state: absent
+        #    ignore_errors: yes  
+
+
+  - name: execute the startup.sh file
+    shell: nohup ./startup.sh # nohup to the it continuesly
+    args:
+      chdir: /opt/apache-tomcat-9.0.91/bin/

@@ -1,0 +1,10 @@
+---
+- name: Creating new user differently
+  hosts: all
+  become: true
+  tasks:
+  - name: creating user by user module specify
+    user:
+      name: Akash
+
+

@@ -1,0 +1,10 @@
+---
+- name: creation of multiple users
+  hosts: Nodes
+  become: true
+  vars_files:
+  - user.yml
+  tasks:
+  - name: creating multiple users with variable file
+    user: 
+      name: "{{golo}}"
